@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.db import models
 from django.core.validators import RegexValidator, EmailValidator
 from django.db.models.signals import post_save
@@ -119,7 +119,7 @@ class FacebookSocialAccount(models.Model):
     """
     Model to store Facebook social account information.
     """
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='facebook_social_accounts')
     social_account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
     social_account_id = models.CharField(max_length=255, blank=True, null=True)
 
@@ -130,7 +130,7 @@ class GoogleSocialAccount(models.Model):
     """
     Model to store Google social account information.
     """
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='google_social_accounts')
     social_account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
     social_account_id = models.CharField(max_length=255, blank=True, null=True)
 
