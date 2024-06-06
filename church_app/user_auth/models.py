@@ -94,6 +94,15 @@ class UserProfile(AbstractUser, DirtyFieldsMixin):
 
     objects = UserProfileManager()
 
+    # Add custom related names to avoid clashes
+    @property
+    def custom_user_groups(self):
+        return self.groups
+
+    @property
+    def custom_user_permissions(self):
+        return self.user_permissions
+
     def __str__(self):
         return self.username
 
