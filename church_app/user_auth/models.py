@@ -92,16 +92,18 @@ class UserProfile(AbstractUser, DirtyFieldsMixin):
     )
     tithe_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
+    groups = models.ManyToManyField(
+        Group,
+        related_name='user_profile_groups',  # custom related name to avoid clash
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='user_profile_permissions',  # custom related name to avoid clash
+        blank=True
+    )
+
     objects = UserProfileManager()
-
-    # Add custom related names to avoid clashes
-    @property
-    def custom_user_groups(self):
-        return self.groups
-
-    @property
-    def custom_user_permissions(self):
-        return self.user_permissions
 
     def __str__(self):
         return self.username
@@ -129,8 +131,8 @@ class FacebookSocialAccount(models.Model):
     Model to store Facebook social account information.
     """
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='facebook_social_accounts')
-    social_account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
-    social_account_id = models.CharField(max_length=255, blank=True, null=True)
+    social_account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE, related_name='facebook_accounts')
+    facebook_social_account_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} - Facebook'
@@ -140,8 +142,8 @@ class GoogleSocialAccount(models.Model):
     Model to store Google social account information.
     """
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='google_social_accounts')
-    social_account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
-    social_account_id = models.CharField(max_length=255, blank=True, null=True)
+    social_account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE, related_name='google_accounts')
+    google_social_account_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} - Google'
