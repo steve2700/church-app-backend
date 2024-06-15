@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.core.validators import FileExtensionValidator
-from ckeditor.fields import RichTextField  # For rich text descriptions
+from django.core.validators import FileExtensionValidator, MinLengthValidator
+from ckeditor_uploader.fields import RichTextUploadingField
 
 User = get_user_model()
 
@@ -14,7 +14,7 @@ EVENT_STATUS_CHOICES = [
 
 class Event(models.Model):
     title = models.CharField(max_length=200, verbose_name="Event Title")
-    description = RichTextField()  # Using RichTextField for rich text descriptions
+    description = RichTextUploadingField()  # Using RichTextUploadingField for rich text descriptions
     date = models.DateTimeField()
     location = models.CharField(max_length=200)
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organized_events')
@@ -29,7 +29,7 @@ class Event(models.Model):
 
 class Series(models.Model):
     title = models.CharField(max_length=200, verbose_name="Series Title")
-    description = RichTextField(blank=True, null=True)  # Using RichTextField for rich text descriptions
+    description = RichTextUploadingField(blank=True, null=True)  # Using RichTextUploadingField for rich text descriptions
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
@@ -46,7 +46,7 @@ class Scripture(models.Model):
 
 class Sermon(models.Model):
     title = models.CharField(max_length=200, verbose_name="Sermon Title")
-    description = RichTextField()  # Using RichTextField for rich text descriptions
+    description = RichTextUploadingField()  # Using RichTextUploadingField for rich text descriptions
     date = models.DateTimeField()
     speaker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sermons')
     series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True, blank=True, related_name='sermons')
