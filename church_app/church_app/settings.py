@@ -49,19 +49,23 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "user_auth",
     "church",
+    "content",
     "ckeditor",
     "ckeditor_uploader",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "django_filters",
 ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-CKEDITOR_5_CONFIGS = {
+CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'basic',
+        'toolbar': 'full',
         'language': 'en',
+        'height': 300,
+        'width': '100%',
     },
 }
 
@@ -77,6 +81,11 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 
 ROOT_URLCONF = "church_app.urls"
 
@@ -150,3 +159,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+
