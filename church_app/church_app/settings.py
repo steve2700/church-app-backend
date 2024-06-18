@@ -50,12 +50,14 @@ INSTALLED_APPS = [
     "user_auth",
     "church",
     "content",
+    "payment",
     "ckeditor",
     "ckeditor_uploader",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "django_filters",
+    ##"encrypted_model_fields",
 ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
