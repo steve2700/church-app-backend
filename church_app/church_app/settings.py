@@ -50,12 +50,14 @@ INSTALLED_APPS = [
     "user_auth",
     "church",
     "content",
+    "payment",
     "ckeditor",
     "ckeditor_uploader",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "django_filters",
+    
 ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -136,6 +138,13 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# encryption key
+
+FIELD_ENCRYPTION_KEY = "'CUE0j6quCCIMEFGqZ2UteDO2r3MHSVYLj7Svp_cpWr0='"
+
+
+
 
 
 # Internationalization
